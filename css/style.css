@@ -1,0 +1,33 @@
+#logo{
+    width: 35px;
+}
+
+.grigio{
+    background-color: rgb(197, 197, 197);
+    color: black;
+}
+#tabella{
+    width: 60%;
+    height: 80vh;
+}
+.blocco{
+    background-color: blue;
+    border: 1px solid white;
+    color: black;
+    height: calc(100vh/12);
+    cursor: pointer;
+}
+
+.header{
+    height: 50px;
+    margin-bottom:10px;
+}
+
+.acqua{
+    background-color: aqua;
+    color: black;
+    height: calc(100vh/ 12);
+    border: 1px solid white;
+    cursor: pointer;
+}
+
