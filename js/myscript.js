@@ -22,8 +22,13 @@ function selezionaCelle(myArray){
     for (let index = 0; index < myArray.length; index++) { 
 
         myArray[index].addEventListener("click",function(){
-            this.classList.remove("blocco");
-            this.classList.add("acqua");
+
+            if( !gameEnded )
+            {
+                this.classList.remove("blocco");
+                this.classList.add("acqua");
+            }
+            
     
         });
     }   
@@ -50,21 +55,27 @@ function generaBombe(num,colPerRow,sentinella){
             bombePiazzate.push(bombaRiga+"-"+bombaCol)
 
             cellaBomba.addEventListener("click",function(){
-                this.classList.remove("blocco");
-                this.classList.add("red");
-                sentinella = true;
+
+                if( !gameEnded )
+                {
+                    this.classList.remove("blocco");
+                    this.classList.add("red");
+                }
+
+                gameEnded = true 
+
             });
         }
         //--fine controllo
     }
-    return sentinella;
+ 
 }
 // al click stabilizzo il livello e creo la tabella di gioco di conseguenza
+let gameEnded = false 
 
 document.getElementById("play").addEventListener("click",function(){
         
         //stabilizzo il livello e creo la tabella di gioco di conseguenza
-        let sentinella = false;
         const lv = document.getElementById("modalita").value;
         let tabella = document.getElementById("tabella");
         let colPerRow = 10;
@@ -92,6 +103,9 @@ document.getElementById("play").addEventListener("click",function(){
         
         bombe = 16; 
         
-        generaBombe(bombe,colPerRow,sentinella);
-
+        generaBombe(bombe,colPerRow,gameEnded);
+        if(sentinella){
+            this.removeEventListener();
+        }
+        
 });
