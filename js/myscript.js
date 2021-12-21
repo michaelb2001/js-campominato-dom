@@ -29,12 +29,42 @@ function selezionaCelle(myArray){
     }   
 }
 
+
+function randomNum(numeroCelle){
+    let num = Math.floor(Math.random()*numeroCelle);
+    return num;
+}
+
+function generaBombe(num,colPerRow,sentinella){
+
+    const bombePiazzate = [];
+
+    while( bombePiazzate.length < num )   
+    {
+        let bombaRiga = randomNum(colPerRow);
+        let bombaCol  = randomNum(colPerRow);
+        let cellaBomba = document.getElementById("cella-"+bombaRiga+"-"+bombaCol);
+        
+        if( !bombePiazzate.includes( bombaRiga+"-"+bombaCol ) )
+        {
+            bombePiazzate.push(bombaRiga+"-"+bombaCol)
+
+            cellaBomba.addEventListener("click",function(){
+                this.classList.remove("blocco");
+                this.classList.add("red");
+                sentinella = true;
+            });
+        }
+        //--fine controllo
+    }
+    return sentinella;
+}
 // al click stabilizzo il livello e creo la tabella di gioco di conseguenza
 
 document.getElementById("play").addEventListener("click",function(){
         
         //stabilizzo il livello e creo la tabella di gioco di conseguenza
-
+        let sentinella = false;
         const lv = document.getElementById("modalita").value;
         let tabella = document.getElementById("tabella");
         let colPerRow = 10;
@@ -59,5 +89,9 @@ document.getElementById("play").addEventListener("click",function(){
         let myArray = document.getElementsByClassName("blocco");
 
         selezionaCelle(myArray);
+        
+        bombe = 16; 
+        
+        generaBombe(bombe,colPerRow,sentinella);
 
 });
