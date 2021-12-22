@@ -25,7 +25,7 @@ function selezionaCelle(myArray){
 
             if( !gameEnded )
             {
-                this.classList.remove("blocco");
+                //this.classList.remove("blocco");
                 this.classList.add("acqua");
             }
             
@@ -58,17 +58,32 @@ function generaBombe(num,colPerRow,sentinella){
 
                 if( !gameEnded )
                 {
-                    this.classList.remove("blocco");
+                    //this.classList.remove("blocco");
                     this.classList.add("red");
+                    scopriBombe(bombePiazzate);
                 }
 
                 gameEnded = true 
+
 
             });
         }
         //--fine controllo
     }
- 
+    return bombePiazzate;
+}
+
+
+function scopriBombe(listabombe){
+    const listaCelle = document.querySelectorAll(".blocco");
+    for (let index = 0; index < listaCelle.length; index++) {
+        const cella = listaCelle[index];
+        
+        if (listabombe.includes(cella.getAttribute("id").replace("cella-",""))){
+            cella.classList.add("red");
+        }
+        
+    }
 }
 // al click stabilizzo il livello e creo la tabella di gioco di conseguenza
 let gameEnded = false 
@@ -103,9 +118,6 @@ document.getElementById("play").addEventListener("click",function(){
         
         bombe = 16; 
         
-        generaBombe(bombe,colPerRow,gameEnded);
-        if(sentinella){
-            this.removeEventListener();
-        }
-        
+        generaBombe(bombe,colPerRow,gameEnded)
+
 });
